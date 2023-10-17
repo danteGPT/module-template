@@ -21,10 +21,10 @@ For a guided walkthrough of building a module, check out our [tutorials page](ht
 forge install
 ```
 
-### Update dependencies
+### Update ModuleKit
 
 ```shell
-git submodule update --remote
+forge update rhinestonewtf/modulekit
 ```
 
 ### Run tests
