@@ -1,9 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.21;
 
-import {UserOperation, BaseValidator} from "@rhinestone/modulekit/contracts/modules/validators/BaseValidator.sol";
+import {
+    ValidatorBase,
+    UserOperation,
+    VALIDATION_SUCCESS,
+    VALIDATION_FAILED,
+    ERC1271_MAGICVALUE
+} from "modulekit/modulekit/ValidatorBase.sol";
 
-contract ValidatorTemplate is BaseValidator {
+contract ValidatorTemplate is ValidatorBase {
     /**
      * @dev validates userOperation
      * @param userOp User Operation to be validated.
@@ -13,21 +19,14 @@ contract ValidatorTemplate is BaseValidator {
     function validateUserOp(
         UserOperation calldata userOp,
         bytes32 userOpHash
-    ) external view override returns (uint256) {
+    )
+        external
+        view
+        override
+        returns (uint256)
+    {
         return VALIDATION_SUCCESS;
     }
-
-    /**
-     * @dev recovers the validator config if access is lost
-     * @param recoveryModule Address of recovery module to validate proof.
-     * @param recoveryProof Recovery proof validated by recovery module.
-     * @param recoveryData Data to be recovered to.
-     */
-    function recoverValidator(
-        address recoveryModule,
-        bytes calldata recoveryProof,
-        bytes calldata recoveryData
-    ) external override {}
 
     /**
      * @dev validates a 1271 signature request
@@ -38,7 +37,12 @@ contract ValidatorTemplate is BaseValidator {
     function isValidSignature(
         bytes32 signedDataHash,
         bytes memory moduleSignature
-    ) public view override returns (bytes4) {
-        return EIP1271_MAGIC_VALUE;
+    )
+        public
+        view
+        override
+        returns (bytes4)
+    {
+        return ERC1271_MAGICVALUE;
     }
 }
