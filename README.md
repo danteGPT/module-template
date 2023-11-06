@@ -37,16 +37,18 @@ forge test
 ### Deploying modules
 
 1. Create a new `.s.sol` file in `script/` and inherit from `Script` and `RegistryDeployer` (see templates).
-2. Create a `.env` file in the root directory and add the following variables:
+2. Create a `.env` file in the root directory and add the following variables (the sender address is the address of the private key):
 
 ```shell
 PK=[YOUR_PRIVATE_KEY]
+SENDER_ADDRESS=[SENDER_ADDRESS]
+RPC_URL=[RPC_URL]
 ```
 
 3. Replace the variables enclosed in `[]` below and then run the command (ensure that you have the native token to pay for deployment gas):
 
 ```shell
-forge script script/[SCRIPT_NAME].s.sol:[CONTRACT_NAME] --rpc-url [RPC_URL] --sender [SENDER_ADDRESS] --broadcast
+source .env && forge script script/[SCRIPT_NAME].s.sol:[CONTRACT_NAME] --rpc-url $RPC_URL --sender $SENDER_ADDRESS --broadcast
 ```
 
 ## Tutorials
